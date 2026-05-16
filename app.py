@@ -26,7 +26,10 @@ logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 
-app.secret_key = os.getenv("SECRET_KEY", "default-secret-key")
+secret_key = os.getenv("SECRET_KEY")
+if not secret_key:
+    raise ValueError("No SECRET_KEY set for Flask application. Aborting startup.")
+app.secret_key = secret_key
 
 app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024
 
@@ -425,5 +428,6 @@ if __name__ == '__main__':
     load_model()
 
     # Run Flask app
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    is_debug = os.getenv("FLASK_DEBUG", "False").lower() in ("true", "1", "t")
+    app.run(debug=is_debug, host='0.0.0.0', port=5000)
 # fix for issue #13
