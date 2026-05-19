@@ -1,4 +1,4 @@
- ## 🌱 Agri-Vision: Cotton Crop Analysis System
+# 🌱 Agri-Vision: Cotton Crop Analysis System
 
 Agri-Vision is an AI-powered system that analyzes cotton crop images to determine growth stages and health conditions.  
 It helps farmers and researchers make informed decisions about crop management and harvest timing.
@@ -15,6 +15,22 @@ Agri-Vision uses deep learning and computer vision techniques to:
 - Offer both a web interface and a REST API  
 
 ---
+
+## 📚 Table of Contents
+
+- [Overview](#-overview)
+- [Features](#-features)
+- [Tech Stack](#️-tech-stack)
+- [Dataset Information](#-dataset-information)
+- [Model Information](#-model-information)
+- [Project Structure](#-project-structure)
+- [Setup & Execution](#-project-setup--execution)
+- [API Reference](#️-api-reference)
+- [Future Enhancements](#-future-enhancements)
+- [Contributing](#-contributing)
+
+---
+
 
 ## ✨ Features
 
@@ -39,15 +55,19 @@ Agri-Vision uses deep learning and computer vision techniques to:
 ![OpenCV](https://img.shields.io/badge/OpenCV-5C3EE8?style=flat-square&logo=opencv&logoColor=white)
 ![Ultralytics](https://img.shields.io/badge/Ultralytics-111827?style=flat-square&logo=yolo&logoColor=white)
 
+> Built using modern AI, deep learning, and computer vision technologies for precision agriculture.
+
 ---
 
 ## Dataset Information
-Both the datasets related to the model training of Growth stage prediction model, crop disease classification model were taken from roboflow
+The datasets used for training the Growth Stage Prediction and Crop Disease Classification models were sourced from Roboflow.
 
-Link to the dataset used for training growth stage prediction model- https://universe.roboflow.com/p-project-ebvkg/cotton-boll-growth-detection/dataset/5
+### Growth Stage Prediction Dataset -
+https://universe.roboflow.com/p-project-ebvkg/cotton-boll-growth-detection/dataset/5
 *The above dataset is also having appropriate labels for YOLO model training
 
-Link to the dataset used for training crop disease classification model- https://universe.roboflow.com/deep-learning-nygzt/cotton-crop-dieases/browse?queryText=&pageSize=50&startingIndex=0&browseQuery=true
+### Crop Disease Classification Dataset -
+https://universe.roboflow.com/deep-learning-nygzt/cotton-crop-dieases/browse?queryText=&pageSize=50&startingIndex=0&browseQuery=true
 
 ## 🔜 Upcoming: Tomato Crop Support
 
@@ -86,34 +106,35 @@ We are actively working on expanding Agri-Vision to support **Tomato crop analys
 
 ---
 
-# Model Information
+# 🤖 Model Information
+
 ## Growth Stage Prediction Model
-Model used- YOLOv8
-Parameters- ~3M
-Layers- 73
+Model Used - YOLOv8  
+Parameters - ~3M  
+Layers - 73
 
 ## Crop Disease Classification Model
-Model Used- Resnet50
-Parameters- 25.6M
+Model Used - ResNet50  
+Parameters - 25.6M
 
 
-# Model Results
-checkout snapshots, training curves at results/
-## Metrics for YOLOv8(Growth stage prediction)
-mAP50- 60.06%
-mAP95- 34.8%
-R- 53.8%
-P- 62.7%
-Inference Time- 3.3ms
+# 📊 Model Results
+Check training curves and result snapshots inside the `results/` directory.
+
+## Metrics for YOLOv8 (Growth Stage Prediction)
+mAP50 - 60.06%
+mAP95 - 34.8%
+R - 53.8%
+P - 62.7%
+Inference Time - 3.3ms
 
 
-## Metrics for Resnet50(Cotton crop disease classification)
-Accuracy- 99.83%
-Precision- 99.83%
-Recall- 99.83%
-F1 Score- 99.83%
-ROC AUC- 99.98%
-
+## Metrics for ResNet50 (Cotton Crop Disease Classification)
+Accuracy - 99.83%
+Precision - 99.83%
+Recall - 99.83%
+F1 Score - 99.83%
+ROC AUC - 99.98%
 
 ---
 
@@ -147,7 +168,7 @@ Agri-Vision/
 
 ---
 
-# 🚀 Project Setup & Execution
+# 🚀 Local Setup & Execution
 
 Follow the steps below to run the project locally.
 
@@ -350,4 +371,4 @@ Special thanks to:
 
 ⭐ If you found this project helpful, consider giving it a star. ⭐
 
-</div> 
+</div>
