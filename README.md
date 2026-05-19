@@ -1,4 +1,4 @@
-# 🌱 Agri-Vision: Cotton Crop Analysis System
+ 🌱 Agri-Vision: Cotton Crop Analysis System
 
 Agri-Vision is an AI-powered system that analyzes cotton crop images to determine growth stages and health conditions.  
 It helps farmers and researchers make informed decisions about crop management and harvest timing.
@@ -350,5 +350,4 @@ Special thanks to:
 
 ⭐ If you found this project helpful, consider giving it a star. ⭐
 
-</div>   
- 
+</div> 
