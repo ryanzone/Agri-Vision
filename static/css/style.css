@@ -90,6 +90,13 @@
     --footer-muted: rgba(224, 234, 226, 0.6);
 }
 
+[data-theme="dark"] .btn-primary:hover,
+[data-theme="dark"] .btn-primary:hover *,
+[data-theme="dark"] .nav-menu .btn-primary:hover {
+    color: #000000 !important;
+    opacity: 1 !important;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -434,13 +441,24 @@ body {
     transform: translateY(-1px);
 }
 
+.nav-menu .btn-primary:hover {
+    color: #000000 !important;
+}
+
 .nav-menu .btn-primary {
     padding: 0.5rem 1.2rem;
     font-size: 0.85rem;
     border-radius: 50px;
     box-shadow: 0 4px 12px rgba(46, 139, 87, 0.2);
+
+    color: white !important;
+    opacity: 1 !important;
 }
 
+.nav-menu .btn-primary:hover {
+    color: black !important;
+    opacity: 1 !important;
+}
 /* Hero Section Redesign & Upgrades */
 .hero {
     position: relative;
@@ -667,6 +685,7 @@ body {
 .btn-primary:hover {
     transform: translateY(-3px);
     box-shadow: 0 12px 30px rgba(46, 139, 87, 0.35);
+    color: #000000 !important;
 }
 
 .btn-primary:hover::before {
