@@ -949,11 +949,13 @@ def tutorials():
 # for users interacting with the Agri-Vision platform
 # =========================================================
 
+
 @app.route("/support")
 def support():
     return render_template("support.html")
 
 @app.route('/stories')
+
 @app.route("/stories")
 def stories():
     return render_template("stories.html")
