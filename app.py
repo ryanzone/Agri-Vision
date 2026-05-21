@@ -949,8 +949,7 @@ def tutorials():
 def support():
     return render_template('support.html')
 
-@app.route('/stories')
-=======
+
 @app.route("/stories")
  main
 def stories():
