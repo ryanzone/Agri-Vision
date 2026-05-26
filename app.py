@@ -1035,14 +1035,15 @@ def health():
     ensure_models_loaded()
     diagnostics = model_manager.diagnostics()
     model_loaded = diagnostics["resnet"]["loaded"] and diagnostics["yolo"]["loaded"]
+    status_code = 200 if model_loaded else 503
     return jsonify({
-        "status": "healthy",
+        "status": "healthy" if model_loaded else "degraded",
         "mode": "ready" if model_loaded else "degraded",
         "timestamp": datetime.now().isoformat(),
         "model_loaded": model_loaded,
         "models": diagnostics,
         "service": "Agri-Vision Cotton Analysis API",
-    })
+    }), status_code
 
 
 @app.route("/analyze", methods=["GET", "POST"])
