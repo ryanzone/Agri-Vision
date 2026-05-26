@@ -137,6 +137,44 @@ function useMyLocation() {
                     <span id="error-message"></span>
                 </div>
 
+                <div id="camera-btn-container" style="margin-top: 1.5rem; display: block;">
+                    <button type="button" class="camera-capture-btn" onclick="document.getElementById('cameraInput').click()" aria-label="Open camera to capture crop image" style="
+                        width: 100%;
+                        padding: 1.25rem;
+                        background: linear-gradient(135deg, var(--emerald-green) 0%, #1e7041 100%);
+                        color: white;
+                        border: none;
+                        border-radius: 16px;
+                        font-size: 1.15rem;
+                        font-weight: 600;
+                        cursor: pointer;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 0.75rem;
+                        box-shadow: 0 8px 16px rgba(46, 139, 87, 0.25);
+                        transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+                    " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 20px rgba(46, 139, 87, 0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 16px rgba(46, 139, 87, 0.25)';" onfocus="this.style.outline='3px solid var(--emerald-green)'; this.style.outlineOffset='2px';" onblur="this.style.outline='none';">
+                        <i class="fas fa-camera" style="font-size: 1.3rem;"></i>
+                        <span>Take Crop Photo</span>
+                    </button>
+                    
+                    <input
+                        type="file"
+                        id="cameraInput"
+                        accept="image/*"
+                        capture="environment"
+                        style="display:none;"
+                        onchange="previewImage(this)"
+                    />
+                </div>
+
+                <div id="upload-divider" style="display: flex; align-items: center; text-align: center; color: #6c757d; font-size: 0.9rem; font-weight: 500; margin-top: 1.5rem;">
+                    <div style="flex: 1; height: 1px; background: #e9ecef;"></div>
+                    <span style="padding: 0 1rem;">OR UPLOAD FILE</span>
+                    <div style="flex: 1; height: 1px; background: #e9ecef;"></div>
+                </div>
+
                 <div class="upload-area" id="drop-zone" onclick="document.getElementById('fileInput').click()" style="
                     border: 2px dashed var(--emerald-green);
                     border-radius: 16px;
@@ -491,12 +529,21 @@ async function previewImage(input) {
             
             const dataTransfer = new DataTransfer();
             dataTransfer.items.add(processedFile);
-            input.files = dataTransfer.files;
+            
+            // Always set the processed file to the main fileInput so form submission works
+            document.getElementById('fileInput').files = dataTransfer.files;
 
             const reader = new FileReader();
             reader.onload = function(e) {
                 preview.src = e.target.result;
                 previewContainer.style.display = 'block';
+                
+                // Hide camera button and divider when image is selected
+                const cameraBtnContainer = document.getElementById('camera-btn-container');
+                const uploadDivider = document.getElementById('upload-divider');
+                if (cameraBtnContainer) cameraBtnContainer.style.display = 'none';
+                if (uploadDivider) uploadDivider.style.display = 'none';
+
                 const children = document.getElementById('drop-zone').children;
                 for (let child of children) {
                     if (child.id !== 'previewContainer') child.style.display = 'none';
@@ -505,20 +552,30 @@ async function previewImage(input) {
             reader.readAsDataURL(processedFile);
         } catch (error) {
             showError(error.message);
-            input.value = '';
+            // Reset both inputs on error
+            document.getElementById('fileInput').value = '';
+            document.getElementById('cameraInput').value = '';
         }
     }
 }
 
 function resetUpload() {
     const input = document.getElementById('fileInput');
+    const cameraInput = document.getElementById('cameraInput');
     const previewContainer = document.getElementById('previewContainer');
     const preview = document.getElementById('imagePreview');
     
     hideError();
     input.value = '';
+    if (cameraInput) cameraInput.value = '';
     preview.src = '';
     previewContainer.style.display = 'none';
+    
+    // Show camera button and divider again
+    const cameraBtnContainer = document.getElementById('camera-btn-container');
+    const uploadDivider = document.getElementById('upload-divider');
+    if (cameraBtnContainer) cameraBtnContainer.style.display = 'block';
+    if (uploadDivider) uploadDivider.style.display = 'flex';
     
     // Show the placeholder text again
     Array.from(document.querySelectorAll('.upload-area > *:not(#previewContainer)')).forEach(el => {

@@ -1095,34 +1095,34 @@ def demo():
         ]
 
         demo_growth = {
-            "main_class": "Matured Cotton Boll",
-            "main_class_idx": 3,
-            "confidence": 0.91,
-            "boxes": demo_growth_boxes,
-            "raw": demo_growth_boxes,
+        "main_class": "Matured Cotton Boll",
+        "main_class_idx": 3,
+        "confidence": 0.91,
+        "boxes": demo_growth_boxes,
+        "raw": demo_growth_boxes,
         }
-        
+    
         # Generate high-quality synthetic cotton BGR image representing field crop
         synthetic_bgr = np.zeros((384, 512, 3), dtype=np.uint8)
-        
+    
         # Fill background with a rich soft earthy background
         synthetic_bgr[:, :] = [30, 40, 45]
-        
+    
         # Draw deep-green leaf foliage (multiple overlapping green circles)
         cv2.circle(synthetic_bgr, (200, 220), 120, (34, 139, 34), -1) # Forest Green
         cv2.circle(synthetic_bgr, (320, 260), 100, (46, 139, 87), -1) # Sea Green
         cv2.circle(synthetic_bgr, (120, 280), 90, (34, 120, 34), -1) # Darker Green
-        
+    
         # Draw organic branch structure
         cv2.line(synthetic_bgr, (256, 384), (256, 200), (42, 75, 124), 12)
         cv2.line(synthetic_bgr, (256, 260), (140, 180), (42, 75, 124), 8)
         cv2.line(synthetic_bgr, (256, 220), (380, 150), (42, 75, 124), 8)
-        
+    
         # Draw localized crop anomalies (reddish-brown leaf spots / target spot disease representation)
         cv2.circle(synthetic_bgr, (220, 200), 15, (40, 50, 139), -1)
         cv2.circle(synthetic_bgr, (215, 195), 5, (20, 30, 80), -1)
         cv2.circle(synthetic_bgr, (180, 240), 10, (40, 50, 139), -1)
-        
+    
         # Draw Matured Cotton Boll within [120, 80, 210, 155] (center is (165, 117.5))
         cv2.ellipse(synthetic_bgr, (165, 117), (40, 30), 0, 0, 360, (50, 180, 100), -1)
         cv2.ellipse(synthetic_bgr, (165, 117), (40, 30), 0, 0, 360, (40, 140, 80), 2)
@@ -1134,57 +1134,56 @@ def demo():
         cv2.circle(synthetic_bgr, (345, 150), 20, (255, 255, 255), -1)
         cv2.circle(synthetic_bgr, (345, 180), 20, (230, 230, 230), -1)
         cv2.ellipse(synthetic_bgr, (345, 185), (35, 15), 0, 0, 360, (30, 50, 90), -1)
-        
+    
         # Convert from BGR to RGB
         synthetic_rgb = cv2.cvtColor(synthetic_bgr, cv2.COLOR_BGR2RGB)
-        
+    
         # Generate mock heatmap
         mock_heatmap = generate_mock_heatmap(synthetic_rgb)
         mock_overlay = apply_heatmap_on_image(synthetic_rgb, mock_heatmap)
-        
+    
         # Base64 encode both original synthetic image and XAI overlay
         image_b64 = encode_image_for_display(synthetic_rgb)
         grad_cam_image_b64 = encode_image_for_display(mock_overlay)
-        
+    
         # Set top-level and nested properties for robustness
         demo_disease["heatmap_b64"] = grad_cam_image_b64
-        
+    
         # Calculate Severity
         severity = calculate_disease_severity(demo_disease["health_score"])
-        
+    
         # Use estimate_yield from service
         from services.yield_service import estimate_yield
         yield_est = estimate_yield(demo_disease, demo_growth, weather=None, field_acres=1.0)
-        
+    
         # Generate advanced recommendations
         adv_recs = generate_advanced_recommendations(demo_disease, demo_growth)
-        
+    
         # Generate farmer insights
         insights = generate_farmer_insights(demo_disease, demo_growth)
 
         example_json = {
-            "disease": demo_disease,
-            "growth": demo_growth,
-            "recommendations": generate_recommendations(demo_disease, demo_growth),
-            "grad_cam_image_b64": grad_cam_image_b64,
-            "disease_severity": severity,
-            "yield_estimate": yield_est,
-            "advanced_recommendations": adv_recs,
-            "farmer_insights": insights
+        "disease": demo_disease,
+        "growth": demo_growth,
+        "recommendations": generate_recommendations(demo_disease, demo_growth),
+        "grad_cam_image_b64": grad_cam_image_b64,
+        "disease_severity": severity,
+        "yield_estimate": yield_est,
+        "advanced_recommendations": adv_recs,
+        "farmer_insights": insights
         }
         return render_template(
-            "results.html",
-            results=example_json,
-            filename="demo_cotton.jpg",
-            image_b64=image_b64,
-            img_shape={"width": 512, "height": 384},
-            raw_json=json.dumps(example_json, indent=2),
-            timestamp=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            grad_cam_image_b64=grad_cam_image_b64,
-            yield_estimate=yield_est,
-            disease_info=disease_info_map.get("Healthy", {}),
-            weather=None
+        "results.html",
+        results=example_json,
+        filename="demo_cotton.jpg",
+        image_b64=image_b64,
+        img_shape={"width": 512, "height": 384},
+        raw_json=json.dumps(example_json, indent=2),
+        timestamp=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        grad_cam_image_b64=grad_cam_image_b64,
+        yield_estimate=yield_est # Also pass as top-level for robustness
         )
+
     except Exception as e:
         logger.error(f"Demo route failed: {e}")
         return redirect(url_for("index"))
