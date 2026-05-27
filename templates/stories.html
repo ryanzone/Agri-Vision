@@ -2,47 +2,51 @@
 <!-- ==========================================================
      Farmer Success Stories Section
 
-     This section showcases real-world success stories
-     from farmers who used the Agri-Vision platform to
-     improve crop health, productivity, irrigation planning,
-     and overall farm management efficiency.
+     This section highlights real-world success stories
+     from farmers using the Agri-Vision platform to improve
+     crop health, productivity, irrigation planning,
+     and overall farming efficiency through AI-driven insights.
 
-     Main Goals of This Section:
+     Main Objectives:
      - Build trust through authentic farmer experiences
-     - Highlight practical AI-driven agricultural benefits
-     - Improve user engagement with visually structured cards
-     - Demonstrate measurable productivity improvements
-     - Create a responsive and balanced storytelling layout
+     - Showcase measurable agricultural improvements
+     - Improve user engagement through modern UI design
+     - Present testimonials in a visually structured format
+     - Maintain visual consistency with the homepage design system
 
      UI/UX Improvements Implemented:
-     - Responsive Bootstrap grid system
-     - Equal-height cards using h-100 utility
-     - Improved spacing consistency between cards
-     - Better typography hierarchy and readability
-     - Cleaner content alignment across all screen sizes
-     - Reduced uneven whitespace and layout imbalance
-     - Enhanced visual symmetry for desktop and mobile views
+     - Modern responsive card-based grid layout
+     - Interactive hover glow effects
+     - Glassmorphism-inspired card styling
+     - Improved spacing and content hierarchy
+     - Avatar-based testimonial identity system
+     - Highlighted yield improvement badges
+     - Enhanced readability and content structure
+     - Balanced desktop and mobile responsiveness
+     - Improved visual consistency with homepage UI
+     - Cleaner and more engaging storytelling experience
 
      Responsive Layout Features:
-     - 3-column layout on large screens
-     - 2-column adaptive layout on tablets
-     - Proper stacking on smaller devices
-     - Flex utilities used for alignment consistency
+     - Multi-column responsive card layout
+     - Proper stacking behavior on smaller screens
+     - Consistent spacing across all breakpoints
+     - Flexible layout structure for responsiveness
+     - Uniform card heights and alignment
 
      Design Enhancements:
-     - Consistent card padding and margins
-     - Uniform typography styling
-     - Improved section heading hierarchy
-     - Balanced content distribution inside cards
-     - Smooth and professional storytelling appearance
+     - Smooth hover transitions and glow effects
+     - Modern rounded card aesthetics
+     - Improved typography hierarchy
+     - Better visual grouping of information
+     - Enhanced testimonial-focused presentation
+     - Softer visual depth and cleaner spacing
+     - More polished and interactive UI experience
 
-     Future Enhancement Possibilities:
-     - Add farmer profile images
-     - Introduce hover animations
-     - Add location icons and crop categories
-     - Include star ratings or testimonials
-     - Connect cards with real backend data
-     - Add carousel support for mobile devices
+     Overall Result:
+     The Stories section now feels visually aligned
+     with the rest of the platform while creating
+     a more modern, engaging, and trustworthy
+     testimonial experience for users.
 ========================================================== -->
 {% extends "index.html" %}
 
@@ -100,7 +104,131 @@
     <div class="text-center mb-5 stories-header">
         <h1 class="fw-bold">Farmer Success Stories</h1>
 
-        <p class="text-muted">
+    .yield-icon {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: rgba(46,139,87,0.18);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.68rem;
+    }
+
+    .yield-label {
+        color: var(--text-muted, #6b7280);
+        font-weight: 500;
+        font-size: 0.75rem;
+        margin-right: 2px;
+    }
+
+    .yield-value {
+        font-size: 0.92rem;
+        font-weight: 800;
+    }
+
+    /* ─── Divider ─────────────────────────────────────────── */
+    .story-divider {
+        height: 1px;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(46,139,87,0.22),
+            transparent
+        );
+        border: none;
+        margin: 0;
+    }
+
+    /* ─── Card: Testimonial Quote ─────────────────────────── */
+    .story-quote {
+        font-size: 0.91rem;
+        line-height: 1.7;
+        color: #5c5c5c;;
+        font-style: italic;
+        position: relative;
+        padding-left: 18px;
+        margin: 0;
+    }
+
+    /* Left accent bar — mirrors feature-card icon accent */
+    .story-quote::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 4px;
+        bottom: 4px;
+        width: 3px;
+        border-radius: 2px;
+        background: linear-gradient(
+            180deg,
+            var(--emerald-green, #2e8b57),
+            transparent
+        );
+        opacity: 0.55;
+    }
+
+    /* ─── Dark Theme Overrides ────────────────────────────── */
+    [data-theme="dark"] .story-card {
+        background: rgba(18, 30, 20, 0.72);
+        border-color: rgba(46,139,87,0.22);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+    }
+
+    [data-theme="dark"] .story-card:hover {
+        box-shadow:
+            0 20px 52px rgba(0,0,0,0.45),
+            0 0 0 1px rgba(46,139,87,0.50),
+            0 0 40px rgba(46,139,87,0.18);
+    }
+
+    [data-theme="dark"] .story-name {
+        color: #f0fdf4;
+    }
+
+    [data-theme="dark"] .story-quote {
+        color: #9ca3af;
+    }
+
+    [data-theme="dark"] .stories-header h1 {
+        color: #f0fdf4;
+    }
+
+    [data-theme="dark"] .story-card::after {
+        background: radial-gradient(
+            ellipse at 50% 0%,
+            rgba(46,139,87,0.30) 0%,
+            transparent 70%
+        );
+    }
+
+    /* ─── Reduced Motion ──────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+        .story-card {
+            animation: none;
+            opacity: 1;
+            transform: none;
+            transition: box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+        .story-card:hover {
+            transform: none;
+        }
+        .stories-eyebrow .badge-dot {
+            animation: none;
+        }
+    }
+</style>
+
+<section class="stories-section">
+    <!-- ── Section Header ── -->
+    <div class="stories-header">
+        <div class="stories-eyebrow">
+            <span class="badge-dot"></span>
+            REAL RESULTS · REAL FARMERS
+        </div>
+        <h1>Farmer Success Stories</h1>
+        <p>
             Real stories from farmers using Agri-Vision to improve crop health and productivity.
         </p>
     </div>
@@ -138,6 +266,22 @@
                     </p>
                 </div>
             </div>
+            <div class="story-meta">
+                <span class="story-name">Ramesh Kumar</span>
+                <span class="story-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    Andhra Pradesh
+                </span>
+            </div>
+            <div class="story-yield-badge">
+                <span class="yield-icon"><i class="fas fa-arrow-up"></i></span>
+                <span class="yield-label">Yield:</span>
+                <span class="yield-value">+30%</span>
+            </div>
+            <hr class="story-divider">
+            <p class="story-quote">
+                "Agri-Vision helped me identify crop diseases early and save my tomato farm."
+            </p>
         </div>
 
         <!-- Farmer 2 -->
@@ -170,6 +314,10 @@
                     </p>
                 </div>
             </div>
+            <hr class="story-divider">
+            <p class="story-quote">
+                "The AI suggestions improved crop monitoring and increased productivity."
+            </p>
         </div>
 
         <!-- Farmer 3 -->
@@ -202,6 +350,22 @@
                     </p>
                 </div>
             </div>
+            <div class="story-meta">
+                <span class="story-name">Suresh Patel</span>
+                <span class="story-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    Gujarat
+                </span>
+            </div>
+            <div class="story-yield-badge">
+                <span class="yield-icon"><i class="fas fa-arrow-up"></i></span>
+                <span class="yield-label">Yield:</span>
+                <span class="yield-value">+40%</span>
+            </div>
+            <hr class="story-divider">
+            <p class="story-quote">
+                "Using Agri-Vision reduced crop loss and improved overall farm health."
+            </p>
         </div>
 
         <!-- Farmer 4 -->
@@ -234,6 +398,15 @@
                     </p>
                 </div>
             </div>
+            <div class="story-yield-badge">
+                <span class="yield-icon"><i class="fas fa-arrow-up"></i></span>
+                <span class="yield-label">Yield:</span>
+                <span class="yield-value">+45%</span>
+            </div>
+            <hr class="story-divider">
+            <p class="story-quote">
+                "The smart recommendations increased productivity and significantly reduced crop damage."
+            </p>
         </div>
 
         <!-- Farmer 5 -->
@@ -266,6 +439,15 @@
                     </p>
                 </div>
             </div>
+            <div class="story-yield-badge">
+                <span class="yield-icon"><i class="fas fa-arrow-up"></i></span>
+                <span class="yield-label">Yield:</span>
+                <span class="yield-value">+28%</span>
+            </div>
+            <hr class="story-divider">
+            <p class="story-quote">
+                "The AI insights made irrigation planning easier and reduced unnecessary water usage."
+            </p>
         </div>
 
         <!-- Farmer 6 -->
@@ -298,10 +480,14 @@
                     </p>
                 </div>
             </div>
+            <hr class="story-divider">
+            <p class="story-quote">
+                "Agri-Vision helped me monitor crop health in real time and improved my farming decisions."
+            </p>
         </div>
 
     </div>
-</div>
+</section>
 
 <!-- ================= MODALS ================= -->
 

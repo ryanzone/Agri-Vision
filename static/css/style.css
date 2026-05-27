@@ -36,6 +36,21 @@
     --info-bg: rgba(74, 144, 226, 0.1);
     --info-text: #0c5460;
     --info-border: rgba(74, 144, 226, 0.2);
+
+    /* Weather recommendation box */
+    --weather-location-bg: linear-gradient(135deg, #e8f4fd 0%, #d1ecf1 100%);
+    --weather-location-border: #bee5eb;
+    --weather-location-text: #0c5460;
+    --weather-location-muted: #6c757d;
+    --weather-location-input-bg: #ffffff;
+    --weather-location-input-border: #ced4da;
+    --weather-location-input-text: #495057;
+    --weather-location-input-placeholder: #7b8794;
+    --weather-location-button-bg: #17a2b8;
+    --weather-location-button-hover-bg: #138496;
+    --weather-location-button-success-bg: #28a745;
+    --weather-location-button-success-hover-bg: #218838;
+    --weather-location-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
     --glass-bg: rgba(255, 255, 255, 0.65);
     --glass-border: rgba(255, 255, 255, 0.4);
     --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
@@ -58,6 +73,39 @@
 
     /* Transitions */
     --transition-smooth: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* Navigation Styles */
+nav {
+    display: flex;
+    gap: 20px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--text-main);
+    padding: 8px 16px;
+    border-radius: 5px;
+    transition: var(--transition-smooth);
+    font-weight: 500;
+}
+
+nav a:hover {
+    background: var(--soft-mint);
+    color: var(--emerald-green);
+}
+
+nav a[href="/model-admin"] {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white !important;
+}
+
+nav a[href="/model-admin"]:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
 }
 
 [data-theme="dark"] {
@@ -105,6 +153,20 @@
     --info-bg: rgba(100, 181, 246, 0.15);
     --info-text: #90caf9;
     --info-border: rgba(100, 181, 246, 0.3);
+
+        --weather-location-bg: linear-gradient(135deg, rgba(22, 27, 33, 0.96) 0%, rgba(17, 24, 39, 0.98) 100%);
+        --weather-location-border: rgba(96, 165, 250, 0.18);
+        --weather-location-text: #dbeafe;
+        --weather-location-muted: #94a3b8;
+        --weather-location-input-bg: rgba(15, 23, 42, 0.95);
+        --weather-location-input-border: rgba(148, 163, 184, 0.22);
+        --weather-location-input-text: #e2e8f0;
+        --weather-location-input-placeholder: #94a3b8;
+        --weather-location-button-bg: #2563eb;
+        --weather-location-button-hover-bg: #1d4ed8;
+        --weather-location-button-success-bg: #16a34a;
+        --weather-location-button-success-hover-bg: #15803d;
+        --weather-location-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
       /* High contrast deep-green-black */
     --footer-text: #E0EAE2;
     --footer-muted: rgba(224, 234, 226, 0.6);
@@ -237,7 +299,320 @@ body {
     flex: 0 0 100%;
     max-width: 100%;
 }
+#scrollTopBtn{
+    position:fixed;
+    bottom:90px;
+    right:20px;
+    width:55px;
+    height:55px;
+    border:none;
+    border-radius:50%;
+    background:linear-gradient(
+        135deg,
+        #22c55e,
+        #16a34a
+    );
 
+    color:white;
+    font-size:1.2rem;
+    cursor:pointer;
+    display:none;
+    z-index:999;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition:0.3s;
+}
+
+#scrollTopBtn:hover{
+
+    transform:translateY(-5px) scale(1.05);
+}
+/* SMART INSIGHTS PANEL */
+
+.smart-insights-panel {
+    margin-top: 2rem;
+    padding: 1.8rem;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #f8fffb 0%, #eefaf2 100%);
+    border: 1px solid rgba(46, 139, 87, 0.15);
+    box-shadow: 0 10px 30px rgba(46, 139, 87, 0.08);
+}
+
+.insights-header {
+    text-align: center;
+    margin-bottom: 1.8rem;
+}
+
+.insights-header h3 {
+    color: var(--emerald-green);
+    font-size: 1.5rem;
+    margin-bottom: 0.4rem;
+}
+
+.insights-header p {
+    opacity: 0.7;
+    font-size: 0.92rem;
+}
+
+.insights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.2rem;
+}
+
+.insight-card {
+    background: white;
+    border-radius: 18px;
+    padding: 1.4rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(46, 139, 87, 0.08);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.04);
+}
+
+.insight-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 24px rgba(46, 139, 87, 0.12);
+}
+
+.insight-icon {
+    font-size: 2rem;
+    margin-bottom: 0.8rem;
+}
+
+.insight-card h4 {
+    margin-bottom: 0.5rem;
+    color: #1f2937;
+}
+
+.insight-value {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.7rem;
+    color: var(--emerald-green);
+}
+
+.insight-tag {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+.insight-tag.good {
+    background: rgba(59, 130, 246, 0.12);
+    color: #2563eb;
+}
+
+.insight-tag.warning {
+    background: rgba(245, 158, 11, 0.15);
+    color: #d97706;
+}
+
+.insight-tag.success {
+    background: rgba(34, 197, 94, 0.15);
+    color: #15803d;
+}
+
+/* Health Meter */
+
+.health-progress {
+    width: 100%;
+    height: 10px;
+    background: #e5e7eb;
+    border-radius: 999px;
+    overflow: hidden;
+    margin: 1rem 0 0.6rem;
+}
+
+.health-progress-bar {
+    width: 86%;
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #22c55e, #16a34a);
+    animation: pulseBar 2s infinite;
+}
+
+.health-score {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #15803d;
+}
+/* AI HEALTH DASHBOARD */
+.ai-health-dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.2rem;
+    margin-bottom: 1.5rem;
+    margin-top: 1.5rem;
+}
+.ai-meter-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 18px;
+    padding: 1.4rem;
+    backdrop-filter: blur(10px);
+}
+
+.meter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    color: white;
+}
+
+.circular-progress {
+    position: relative;
+    width: 110px;
+    height: 110px;
+    margin: 0 auto 1rem;
+}
+
+.circular-progress svg {
+    width: 110px;
+    height: 110px;
+    transform: rotate(-90deg);
+}
+
+.circular-progress svg circle {
+    fill: none;
+    stroke-width: 10;
+    stroke-linecap: round;
+}
+
+.circular-progress svg circle:first-child {
+    stroke: rgba(255,255,255,0.1);
+}
+
+#confidenceCircle {
+    stroke: #80ffb2;
+    stroke-dasharray: 283;
+    stroke-dashoffset: 17;
+    transition: stroke-dashoffset 1s ease;
+}
+
+.progress-number {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+}
+
+.meter-status {
+    text-align: center;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+}
+
+.success-status {
+    color: #80ffb2;
+}
+
+.healthy-status {
+    color: #4ade80;
+}
+
+/* HEALTH BAR */
+
+.health-meter-wrapper {
+    margin: 1rem 0;
+}
+
+.health-meter {
+    width: 100%;
+    height: 16px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.12);
+    overflow: hidden;
+    position: relative;
+}
+
+.health-meter-fill {
+    height: 100%;
+    width: 86%;
+    border-radius: 999px;
+    background: linear-gradient(
+        90deg,
+        #ef4444 0%,
+        #f59e0b 45%,
+        #22c55e 100%
+    );
+    animation: healthPulse 2s infinite;
+    transition: width 1s ease;
+}
+
+.health-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.45rem;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.55);
+}
+
+@keyframes healthPulse {
+    0% {
+        opacity: 0.75;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.75;
+    }
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+    .ai-health-dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    .circular-progress {
+        width: 95px;
+        height: 95px;
+    }
+
+    .circular-progress svg {
+        width: 95px;
+        height: 95px;
+    }
+}
+@keyframes pulseBar {
+    0% {
+        opacity: 0.7;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.7;
+    }
+}
+
+/* MOBILE RESPONSIVE */
+
+@media (max-width: 768px) {
+
+    .smart-insights-panel {
+        padding: 1.2rem;
+    }
+
+    .insights-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .insight-card {
+        padding: 1.2rem;
+    }
+}
 @media (min-width: 768px) {
     .col-md-6 {
         flex: 0 0 50%;
@@ -256,6 +631,9 @@ body {
     flex-direction: column;
     gap: 8px;
     line-height: 1.1;
+    width:100%;
+    align-items:center;
+    justify-content:center;
 }
 
 .typewriter span {
@@ -266,127 +644,20 @@ body {
 }
 
 /* First Line */
-.typewriter .line1 {
-    width: 0;
-    animation:
-        typing1 2s steps(14) forwards,
-        blink .7s infinite;
-    font-size: 4rem;
-    font-weight: 800;
-    color: #f5f5f5;
-}
+.typewriter .line1,
 
 /* Second Line */
 .typewriter .line2 {
-    width: 0;
-    animation:
-        typing2 3s steps(25) forwards 2.1s,
-        blink .7s infinite;
-    font-size: 3rem;
-    font-weight: 800;
-    background: linear-gradient(90deg, #4ade80, #67e8f9);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    border-right: 3px solid #4ade80;
 }
 
 /* Typing animations */
-@keyframes typing1 {
-    from { width: 0 }
-    to { width: 8ch }
-}
-
-@keyframes typing2 {
-    from { width: 0 }
-    to { width: 16ch }
-}
 
 /* Cursor blink */
-@keyframes blink {
-    50% {
-        border-color: transparent;
-    }
-}
 
 /* Responsive */
-@media (max-width: 768px) {
-    .typewriter .line1,
-    .typewriter .line2 {
-        font-size: 2.5rem;
-    }
-}
-.card {
-    background: var(--card-bg);
-    color: var(--text-main);
-    border-radius: 20px;
-    border: 1px solid var(--card-border);
-    box-shadow: var(--card-shadow);
-    overflow: hidden;
-    transition: var(--transition-smooth);
-
-    width: 100%;
-    min-height: 320px;
-    max-width: 100%;
-}
-
-.card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--card-hover-shadow);
-}
-
-.card-body {
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.card .lead-text {
-    color: var(--text-muted);
-    opacity: 0.85;
-}
-
-.card .stat-label {
-    color: var(--emerald-green);
-}
-
-.card .stat-value {
-    color: var(--deep-forest);
-    font-size: 1.2rem;
-    margin-left: 0.5rem;
-}
 
 /* Animations */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes slideInRight {
-    from {
-        opacity: 0;
-        transform: translateX(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-8px); }
-    100% { transform: translateY(0px); }
-}
-
-.fade-in {
-    animation: fadeInUp 0.6s ease forwards;
-}
 
 /* Navigation */
 .navbar {
@@ -664,14 +935,13 @@ body {
 
 .hero-container {
     position: relative;
-    max-width: 1100px;
-    /* margin: 0 auto; */
-    margin-left: 270px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
     display: grid;
     grid-template-columns: 1.15fr 0.85fr;
     gap: 4rem;
     align-items: center;
-    z-index: 3;
     width: 100%;
 }
 
@@ -1148,33 +1418,50 @@ body {
 
 /* Responsiveness */
 @media (max-width: 991px) {
+
     .hero-container {
+
         grid-template-columns: 1fr;
-        gap: 4rem;
+
         text-align: center;
+
+        gap: 3rem;
     }
-    
-    .hero-content h1 {
-        font-size: 2.6rem;
+
+    .hero-content {
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        text-align:center;
+        margin:0 auto;
     }
-    
-    .hero-content p {
-        margin-left: auto;
-        margin-right: auto;
-    }
-    
-    .hero-cta {
+
+    .hero-image {
+        order: 2;
+        display: flex;
         justify-content: center;
     }
-    
-    .floating-telemetry-1 {
-        left: 20px;
-        bottom: -15px;
+    .hero-content p {
+        max-width:650px;
+        margin-left:auto;
+        margin-right:auto;
     }
-    
-    .floating-telemetry-2 {
-        right: 20px;
-        top: -15px;
+    .scanner-container {
+        width: 100%;
+        max-width: 450px;
+        height: auto;
+    }
+    .typewriter {
+        align-items:center;
+    }
+    .hero-cta {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .hero-badge-wrapper {
+        display:flex;
+        justify-content:center;
     }
 }
 
@@ -2004,6 +2291,8 @@ body {
 }
 
 .comparison-dropzone {
+    position: relative;
+    overflow: hidden;
     min-height: 190px;
     border: 1.5px dashed rgba(46, 139, 87, 0.45);
     border-radius: 18px;
@@ -2247,6 +2536,39 @@ body {
     background: linear-gradient(90deg, var(--emerald-green), var(--fresh-green));
 }
 
+.remove-image-btn{
+    display: none;
+
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    width: 42px;
+    height: 42px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(0,0,0,0.72);
+    color: white;
+
+    cursor: pointer;
+    z-index: 20;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 20px;
+    font-weight: bold;
+
+    backdrop-filter: blur(4px);
+}
+
+.remove-image-btn:hover{
+    background: rgba(0,0,0,0.9);
+    transform: scale(1.05);
+}
+
 .ai-summary-card ul {
     list-style: none;
     display: grid;
@@ -2309,7 +2631,42 @@ body {
         grid-template-columns: 1fr;
     }
 }
+@media (max-width: 576px) {
 
+    .hero {
+
+        padding: 7rem 1rem 4rem;
+    }
+
+    .hero-content h1 {
+
+        font-size: 2.2rem;
+    }
+
+    .hero-content p {
+
+        font-size: 1rem;
+    }
+
+    .hero-cta {
+
+        flex-direction: column;
+
+        width: 100%;
+    }
+
+    .hero-cta .btn {
+
+        width: 100%;
+
+        justify-content: center;
+    }
+
+    .scanner-container {
+
+        max-width: 100%;
+    }
+}
 @media (max-width: 560px) {
     .comparison-shell {
         padding: 0 1rem;
@@ -2381,6 +2738,113 @@ body {
     background: var(--info-bg);
     color: var(--info-text);
     border-color: var(--info-border);
+}
+
+/* Weather-aware location recommendation box */
+.weather-location-section {
+    background: var(--weather-location-bg);
+    border: 1px solid var(--weather-location-border);
+    color: var(--weather-location-text);
+    box-shadow: var(--weather-location-shadow);
+}
+
+.weather-location-title {
+    color: var(--weather-location-text);
+}
+
+.weather-location-subtitle,
+.weather-location-status {
+    color: var(--weather-location-muted);
+}
+
+.weather-location-status {
+    margin: 0.5rem 0 0;
+    font-size: 0.8rem;
+}
+
+.weather-location-status.is-success {
+    color: var(--success-text);
+}
+
+.weather-location-status.is-error {
+    color: var(--error-text);
+}
+
+.weather-location-controls {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.weather-location-input-wrap {
+    position: relative;
+    flex: 1;
+    min-width: 200px;
+}
+
+.weather-location-input {
+    width: 100%;
+    padding: 0.5rem 2.2rem 0.5rem 0.75rem;
+    border: 1px solid var(--weather-location-input-border);
+    border-radius: 8px;
+    background: var(--weather-location-input-bg);
+    color: var(--weather-location-input-text);
+    font-size: 0.9rem;
+    box-sizing: border-box;
+    transition: border-color 0.2s, background-color 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+.weather-location-input::placeholder {
+    color: var(--weather-location-input-placeholder);
+}
+
+.weather-location-input:focus {
+    outline: none;
+    border-color: var(--ai-blue);
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.12);
+}
+
+.weather-location-tick {
+    position: absolute;
+    right: 0.6rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    display: none;
+}
+
+.weather-location-button {
+    padding: 0.5rem 1rem;
+    background: var(--weather-location-button-bg);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    transition: background-color 0.2s, transform 0.2s, opacity 0.2s;
+}
+
+.weather-location-button:hover:not(:disabled) {
+    background: var(--weather-location-button-hover-bg);
+}
+
+.weather-location-button.is-success {
+    background: var(--weather-location-button-success-bg);
+}
+
+.weather-location-button.is-success:hover:not(:disabled) {
+    background: var(--weather-location-button-success-hover-bg);
+}
+
+.weather-location-button:disabled {
+    opacity: 0.8;
+    cursor: not-allowed;
+}
+
+.weather-location-alert {
+    margin-top: 1rem;
 }
 
 .success-text {
@@ -3072,848 +3536,134 @@ fix-stories-card-alignment
         #6ddc90
     );
     box-shadow: 0 0 15px rgba(93,211,139,0.45);
+    }
+}
+/* Fix 2: Hero container mobile margin */
+@media (max-width: 768px) {
+    .hero-container {
+        margin-left: 0;
+        width: 100%;
+        padding: 0 16px;
+    }
 }
 
-/* =========================================================
-   Active Navbar Highlight Styling
-   Improves navigation clarity and user orientation
-   across Agri-Vision pages
-========================================================= */
-
-.nav-link {
-    position: relative;
-    transition: all 0.3s ease;
+/* Fix 3: Scanner container responsive */
+.scanner-container {
+    max-width: 100%;
+    box-sizing: border-box;
 }
-
-/* Active page highlight */
-.active-nav {
-    color: #57e389 !important;
-    font-weight: 700;
-}
-
-/* Animated underline effect */
-.active-nav::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -6px;
-    width: 100%;
-    height: 2px;
-    background: #57e389;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(87, 227, 137, 0.6);
-}
-
-/* Hover improvement for navbar links */
-.nav-link:hover {
-    color: #57e389;
-}
-
-/* =========================================================
-   ADVANCED NAVIGATION EXPERIENCE ENHANCEMENT
-   =========================================================
-   This styling block was added to improve the overall
-   user navigation experience inside the Agri-Vision
-   platform interface.
-
-   The previous navbar implementation worked correctly,
-   but lacked visual indication for the currently active
-   page. This could create confusion for users navigating
-   between different agricultural analysis modules.
-
-   Improvements introduced in this enhancement:
-
-   ✔ Active page highlighting
-   ✔ Smooth hover transitions
-   ✔ Modern glowing underline animation
-   ✔ Better visual hierarchy
-   ✔ Improved accessibility and orientation
-   ✔ Consistent futuristic UI appearance
-   ✔ Enhanced dark-theme compatibility
-   ✔ Better responsiveness for different screen sizes
-   ✔ Improved readability for navbar interactions
-   ✔ More professional production-style navigation feel
-
-   Design Goals:
-   ---------------------------------------------------------
-   - Maintain Agri-Vision cyber/agri aesthetic
-   - Keep navbar lightweight and responsive
-   - Improve navigation clarity for users
-   - Add subtle animation without distraction
-   - Match green AI-inspired visual identity
-
-   Technical Notes:
-   ---------------------------------------------------------
-   The active navbar system uses:
-   - pseudo-elements (::after)
-   - transition animations
-   - glow shadows
-   - custom highlight coloring
-   - reusable nav-link utility classes
-
-   Future Expansion Possibilities:
-   ---------------------------------------------------------
-   - Dynamic active page detection using Flask/Jinja
-   - Animated page transition indicators
-   - Gradient underline effects
-   - Mobile navigation active states
-   - Scroll-aware navbar highlighting
-   - Breadcrumb integration
-   - Multi-theme compatibility
-
-   This enhancement contributes toward improving
-   the professional frontend experience of the
-   Agri-Vision AI-powered agricultural platform.
-========================================================= */
-
-/*  MOBILE RESPONSIVENESS */
 
 @media (max-width: 768px) {
-
-    body {
-        overflow-x: hidden;
-    }
-
-    .container {
-        padding: 1rem;
-    }
-
-    h1 {
-        font-size: 2rem;
-    }
-
-    h2 {
-        font-size: 1.5rem;
-    }
-
-    p {
-        font-size: 0.95rem;
-    }
-
-    img {
-        max-width: 100%;
-        height: auto;
+    .scanner-container {
+        width: 100%;
     }
 }
-/* MOBILE NAVBAR FIX */
 
-@media (max-width:768px){
-
-    .navbar{
-        position: fixed;
-        top: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-
-        width: 92%;
-        z-index: 9999;
-
-        padding: 12px 16px;
-        border-radius: 18px;
-
-        background: rgba(255,255,255,.92);
-        backdrop-filter: blur(10px);
-
-        box-shadow: 0 8px 20px rgba(0,0,0,.08);
-
-        overflow: visible;
-    }
-
-    .nav-container{
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-
-        flex-wrap:nowrap !important;
-        flex-direction:row !important;
-
-        padding:0 !important;
-    }
-
-    .nav-brand{
-        display:flex;
-        align-items:center;
-        gap:8px;
-
-        min-width:0;
-        overflow:visible;
-    }
-
-    .nav-brand img,
-    .nav-logo{
-        width:28px;
-        height:28px;
-        flex-shrink:0;
-    }
-
-    .nav-brand h1,
-    .nav-brand span{
-        font-size:1.2rem !important;
-        white-space:nowrap;
-        margin:0;
-    }
-
-    .nav-menu{
-        display:none;
-    }
- /* page spacing under fixed navbar */
-    body{
-        padding-top:85px;
-    }
-
-}
-/* MOBILE UPLOAD AREA FIX*/
-
+/* Fix 7: Reduce backdrop-filter on mobile */
 @media (max-width: 768px) {
-
-    .upload-area {
-        padding: 1rem !important;
-        min-height: auto;
-    }
-
-    .upload-area i {
-        font-size: 2rem !important;
-    }
-
-    .upload-area p {
-        line-height: 1.4;
-    }
-
     .glass-card {
-        padding: 1rem !important;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: rgba(255, 255, 255, 0.85);
     }
 
-    .section-header h1 {
-        font-size: 1.8rem !important;
+    [data-theme="dark"] .glass-card {
+        background: rgba(22, 27, 33, 0.92);
     }
 
-    .section-header p {
-        font-size: 0.9rem !important;
+    .navbar {
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
     }
 }
-.results-main-title{
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-    color: var(--emerald-green);
-}
-.results-subtitle{
-    font-size: 0.95rem;
-}
-.result-card{
-    margin-top: 2rem;
-    padding: 1.5rem;
-    border-radius: 18px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
-    backdrop-filter: blur(14px);
-    transition: all 0.3s ease;
-    box-sizing: border-box;
-    overflow: hidden;
+
+/* Fix 8: Disable blobs on mobile */
+@media (max-width: 768px) {
+    .blob-1,
+    .blob-2,
+    .blob-3 {
+        display: none;
+    }
 }
 
-.result-card:hover{
-    transform: translateY(-4px);
-    border-color: rgba(46,139,87,0.35);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-}
-.results-table{
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
-    overflow: hidden;
-    border-radius: 12px;
-    table-layout: fixed;
-}
-
-.results-table th{
-    background: rgba(46,139,87,0.12);
-    padding: 14px;
-    text-align: left;
-}
-
-.results-table td{
-    padding: 12px 14px;
-    border-top: 1px solid rgba(255,255,255,0.08);
-}
-
-.results-table tr:hover{
-    background: rgba(255,255,255,0.03);
-}
-.health-bar{
-    width: 100%;
-    height: 14px;
-    background: rgba(255,255,255,0.08);
-    border-radius: 999px;
-    overflow: hidden;
-    margin: 0.7rem 0;
-}
-
-.health-fill{
-    height: 100%;
-    border-radius: 999px;
-    background: linear-gradient(90deg,#00c853,#69f0ae);
-    box-shadow: 0 0 18px rgba(0,200,83,0.45);
-    transition: width 0.6s ease;
-}
-.result-img{
-    width: 100%;
-    border-radius: 18px;
-    border: 2px solid rgba(46,139,87,0.2);
-    box-shadow: 0 10px 40px rgba(0,0,0,0.18);
-}
-.results-list li{
-    line-height: 1.8;
-    margin-bottom: 1rem;
-    font-size: 1rem;
-}
-
-.container{
-    width: 100%;
-    max-width: 1200px;
-    margin: auto;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    box-sizing: border-box;
-}
- .results-list{
-    padding-left: 1.2rem;
-    word-break: break-word;
-}
-.bbox-cell{
-    font-size: 0.9rem;
-    line-height: 1.5;
-    word-break: break-word;
-}
-
-/* Smooth Global Transitions */
-* {
-    transition:
-        background-color 0.3s ease,
-        color 0.3s ease,
-        border-color 0.3s ease;
-}
-
-/* Better Mobile Spacing */
+/* Mobile Hero Fixes */
 @media (max-width: 768px) {
 
-    section {
-        padding: 3rem 1rem !important;
-    }
-
-    .container,
-    .dashboard-container,
-    .results-container {
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
-    }
-
-    .dashboard-card,
-    .result-card,
-    .glass-card,
-    .feature-card {
-        padding: 1rem !important;
-        border-radius: 16px !important;
-    }
-
-    .dashboard-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-    }
-
-    .dashboard-status-bar {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-    }
-
+    /* Fix hero layout to single column */
     .hero {
-        min-height: auto;
-        padding-top: 7rem;
+        padding: 6rem 1rem 3rem;
     }
 
-    .hero-content h1 {
+    .hero-container {
+        margin-left: 0;
+        width: 100%;
+        padding: 0 1rem;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    /* Fix badge + heading collision */
+    .hero-badge-wrapper {
+        margin-bottom: 0.75rem;
+    }
+
+    .hero-badge {
+        font-size: 0.7rem;
+        padding: 0.4rem 0.9rem;
+        white-space: normal;
+        text-align: center;
+    }
+
+    /* Fix heading size so it doesn't collide */
+    .hero-content h1,
+    .typewriter .line1,
+    .typewriter .line2 {
         font-size: 1.8rem !important;
-        line-height: 1.3;
+        white-space: normal;
+        overflow: visible;
+        width: auto !important;
     }
 
-    .hero-content p {
-        font-size: 0.95rem;
+    .typewriter {
+        gap: 4px;
     }
 
+    /* Fix CTA buttons stacking properly */
     .hero-cta {
         flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
         width: 100%;
     }
 
-    .hero-cta .btn-primary,
-    .hero-cta .btn-secondary {
+    .hero-cta .btn {
         width: 100%;
         justify-content: center;
     }
-}
 
-/* Better Responsive Grids */
-@media (max-width: 600px) {
-
-    .results-grid,
-    .dashboard-metrics-grid,
-    .probabilities-grid,
-    .stories-grid {
-        grid-template-columns: 1fr !important;
-    }
-
-    .feature-card,
-    .result-card,
-    .dashboard-card {
-        min-width: 100%;
-    }
-}
-
-/* Responsive Tables */
-.results-table {
-    display: block;
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-}
-
-/* Prevent Long Text Overflow */
-h1, h2, h3, h4, p, span, a, li {
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-}
-
-/* Prevent Image Overflow */
-img,
-canvas,
-video {
-    max-width: 100%;
-    height: auto;
-}
-
-/* Mobile Floating Elements Fix */
-@media (max-width: 768px) {
-
-    .floating-telemetry-1,
-    .floating-telemetry-2 {
-        position: static;
-        margin-top: 1rem;
+    /* Show the right side (scanner) below content */
+    .hero-image {
         width: 100%;
-        animation: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .scanner-container {
-        overflow: hidden;
-    }
-}
-
-/* Skeleton Loading Animation */
-.skeleton {
-    position: relative;
-    overflow: hidden;
-    background: rgba(255,255,255,0.08);
-    border-radius: 12px;
-}
-
-.skeleton::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    transform: translateX(-100%);
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255,255,255,0.18),
-        transparent
-    );
-    animation: skeleton-loading 1.2s infinite;
-}
-
-@keyframes skeleton-loading {
-    100% {
-        transform: translateX(100%);
-    }
-}
-
-/* Spinner Loader */
-.loader {
-    width: 50px;
-    height: 50px;
-    border: 4px solid rgba(255,255,255,0.15);
-    border-top-color: var(--emerald-green);
-    border-radius: 50%;
-    animation: spinLoader 0.8s linear infinite;
-    margin: 2rem auto;
-}
-
-@keyframes spinLoader {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-/* Fade Loading Transition */
-.fade-loading {
-    animation: fadeContent 0.4s ease;
-}
-
-@keyframes fadeContent {
-    from {
-        opacity: 0;
-        transform: translateY(8px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Better Touch Interaction */
-button,
-a,
-.card,
-.btn-primary,
-.btn-secondary {
-    -webkit-tap-highlight-color: transparent;
-}
-
-/* Mobile Typography Scaling */
-html {
-    font-size: clamp(14px, 1vw, 16px);
-}
-
-/* Reduce Heavy Animations on Mobile */
-@media (max-width: 768px) {
-
-    .blob,
-    .scanner-laser,
-    .mock-bbox,
-    .feature-card:hover,
-    .result-card:hover,
-    .dashboard-card:hover {
-        animation: none !important;
-        transform: none !important;
-    }
-}
-/* =========================================================
-   Footer Responsiveness & Spacing Improvements
-   =========================================================
-   This styling enhancement improves the footer layout
-   across tablets, mobile devices, and smaller screens.
-
-   Key improvements included:
-   ---------------------------------------------------------
-   ✔ Better footer spacing
-   ✔ Improved mobile responsiveness
-   ✔ Cleaner stacked layout
-   ✔ Better text readability
-   ✔ Reduced overcrowding
-   ✔ Flexible wrapping behavior
-   ✔ Improved alignment consistency
-   ✔ Enhanced small-screen usability
-   ✔ Better footer navigation visibility
-   ✔ Modern responsive spacing structure
-
-   The previous footer layout appeared slightly compressed
-   on smaller screens and required better spacing behavior
-   for improved readability and accessibility.
-
-   This enhancement ensures the footer maintains
-   Agri-Vision's modern futuristic design language
-   while adapting smoothly across multiple resolutions.
-========================================================= */
-
-/* Footer responsive layout improvements */
-.footer-container {
-    gap: 2rem;
-}
-
-/* Footer links spacing enhancement */
-.footer-links-compact {
-    gap: 1.2rem;
-    flex-wrap: wrap;
-}
-
-/* Better footer bottom alignment */
-.footer-bottom {
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
-/* Responsive adjustments for tablets */
-@media (max-width: 768px) {
-
-    .footer-container {
-        padding: 2rem 1.5rem;
-        text-align: center;
+        width: 100%;
+        height: 260px;
     }
 
-    .footer-links-compact {
-        justify-content: center;
+    /* Fix floating telemetry cards from overflowing */
+    .floating-telemetry-1 {
+        position: static;
+        margin-top: 1rem;
+        width: 100%;
     }
 
-    .footer-bottom {
-        flex-direction: column;
-        text-align: center;
+    .floating-telemetry-2 {
+        position: static;
+        margin-top: 0.75rem;
+        width: 100%;
     }
-
-    .footer-social {
-        justify-content: center;
-    }
-}
-
-/* Mobile screen optimization */
-@media (max-width: 480px) {
-
-    .footer-container {
-        padding: 1.5rem 1rem;
-    }
-
-    .footer-links-compact {
-        gap: 0.8rem;
-        font-size: 0.92rem;
-    }
-
-    .footer-title {
-        font-size: 1.4rem;
-    }
-
-    .footer-subtitle {
-        font-size: 0.95rem;
-        line-height: 1.6;
-    }
-
-    .footer-bottom {
-        gap: 0.7rem;
-    }
-
-    .footer-social {
-        gap: 0.8rem;
-    }
-}
-
-/* =========================================================
-   Additional Footer UI Enhancement Notes
-   =========================================================
-   Future footer improvements may include:
-
-   - Animated footer reveal transitions
-   - Dynamic copyright year logic
-   - Accessibility contrast improvements
-   - Social icon hover glow animations
-   - Multi-column responsive footer grids
-   - Better keyboard navigation visibility
-   - Progressive mobile layout optimization
-   - Advanced glassmorphism footer styling
-   - Sticky responsive footer behavior
-   - Dynamic quick-link organization
-
-   This enhancement contributes toward creating
-   a more production-ready responsive experience
-   for Agri-Vision users across modern devices.
-
-   The footer now behaves more consistently
-   across different viewport dimensions while
-   preserving readability and navigation clarity.
-========================================================= */
-.agri-scan-history-panel {
-    margin-top: 2rem;
-    padding: 1.25rem;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 20px;
-    background: rgba(8, 22, 18, 0.68);
-    box-shadow: 0 16px 38px rgba(0, 0, 0, 0.28);
-    backdrop-filter: blur(16px);
-}
-
-.agri-scan-history-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 1rem;
-}
-
-.agri-scan-history-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-    gap: 1rem;
-}
-
-.agri-scan-history-card {
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.06);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
-    transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
-}
-
-.agri-scan-history-card:hover {
-    transform: translateY(-3px);
-    border-color: rgba(45, 212, 117, 0.38);
-    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.3);
-}
-
-.agri-scan-history-img {
-    display: block;
-    width: 100%;
-    height: 145px;
-    object-fit: cover;
-    background: rgba(0, 0, 0, 0.22);
-}
-
-.agri-scan-history-body {
-    padding: 0.9rem;
-}
-
-.agri-scan-history-disease {
-    color: #ffffff;
-    font-size: 0.98rem;
-    font-weight: 700;
-    margin-bottom: 0.35rem;
-}
-
-.agri-scan-history-confidence,
-.agri-scan-history-date,
-.agri-scan-history-empty {
-    color: rgba(255, 255, 255, 0.72);
-    font-size: 0.84rem;
-}
-
-.agri-scan-history-date {
-    margin-top: 0.25rem;
-}
-
-.agri-scan-history-empty {
-    padding: 0.9rem;
-    border: 1px dashed rgba(255, 255, 255, 0.16);
-    border-radius: 14px;
-    background: rgba(255, 255, 255, 0.04);
-}
-
-.agri-scan-history-delete {
-    margin-top: 0.8rem;
-    padding: 0.45rem 0.75rem;
-    border: 1px solid rgba(255, 95, 95, 0.35);
-    border-radius: 999px;
-    background: rgba(239, 68, 68, 0.16);
-    color: #ffd4d4;
-    font-size: 0.8rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.agri-scan-history-delete:hover {
-    background: rgba(239, 68, 68, 0.28);
-    transform: translateY(-1px);
-}
-
-.agri-leaf-compare-wrap {
-    margin-top: 2rem;
-    padding: 1.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 22px;
-    background: rgba(12, 22, 20, 0.72);
-    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
-    backdrop-filter: blur(18px);
-}
-
-.agri-leaf-compare-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.25rem;
-}
-
-.agri-leaf-compare-card {
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 18px;
-    background: rgba(255, 255, 255, 0.06);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
-    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-}
-
-.agri-leaf-compare-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(78, 214, 122, 0.35);
-    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.32);
-}
-
-.agri-leaf-compare-imagebox {
-    position: relative;
-    width: 100%;
-    height: 260px;
-    overflow: hidden;
-    background: rgba(0, 0, 0, 0.2);
-}
-
-.agri-leaf-compare-imagebox img {
-    width: 100%;
-    height: 260px;
-    object-fit: cover;
-    display: block;
-}
-
-.agri-leaf-healthy-label,
-.agri-leaf-diseased-label {
-    position: absolute;
-    left: 1rem;
-    bottom: 1rem;
-    padding: 0.4rem 0.75rem;
-    border-radius: 999px;
-    color: #ffffff;
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
-}
-
-.agri-leaf-healthy-label {
-    background: rgba(34, 197, 94, 0.88);
-}
-
-.agri-leaf-diseased-label {
-    background: rgba(239, 68, 68, 0.88);
-}
-
-.agri-leaf-symptoms-panel,
-.agri-leaf-treatment-panel {
-    margin-top: 1rem;
-    padding: 1rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.055);
-    color: rgba(255, 255, 255, 0.86);
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
-}
-
-.agri-leaf-symptoms-panel strong,
-.agri-leaf-treatment-panel strong {
-    color: #9ff0b8;
-}
-
-@media (max-width: 768px) {
-    .agri-scan-history-panel {
-        padding: 1rem;
-    }
-
-    .agri-scan-history-list,
-    .agri-leaf-compare-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .agri-leaf-compare-wrap {
-        padding: 1rem;
-    }
-}
-
-/* Loading State Protection */
-button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none !important;
-    box-shadow: none !important;
 }
