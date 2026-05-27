@@ -23,8 +23,13 @@ def client():
     with app.app.test_client() as client:
         with app.app.app_context():
             db.create_all()
-            # Create a dummy user for auth
-            test_user = User(id=1, email="test@example.com", full_name="Test User")
+            # Create a dummy user for auth with a hashed password
+            test_user = User(
+                id=1, 
+                email="test@example.com", 
+                full_name="Test User",
+                password_hash="pbkdf2:sha256:260000$test$test"
+            )
             db.session.add(test_user)
             db.session.commit()
             
