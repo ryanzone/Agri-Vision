@@ -357,8 +357,130 @@
                 text-align: center !important;
                 margin-top: 10px !important;
             }
+
+            /* Language Dropdown */
+            .language-dropdown {
+            padding: 10px 14px;
+            border-radius: 25px;
+            border: none;
+            outline: none;
+            background: #22c55e;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.3s ease;
+            }
+
+            .language-dropdown:hover {
+            background: #16a34a;
+            }
+
+            .language-dropdown option {
+            background: white;
+            color: black;
+            }
         }
+
+        /* ===== GOOGLE TRANSLATE CLEAN STABLE STYLE ===== */
+
+        #google_translate_element {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Hide Google branding */
+        .goog-logo-link,
+        .goog-te-banner-frame,
+        .goog-te-gadget-icon {
+            display: none !important;
+        }
+
+        /* Prevent top bar spacing */
+        body {
+            top: 0 !important;
+        }
+
+        /* Main widget container */
+        .goog-te-gadget {
+            color: transparent !important;
+        }
+
+        /* Language dropdown */
+        .goog-te-combo {
+            background: rgba(255,255,255,0.95) !important;
+
+            border: 2px solid rgba(34,197,94,0.18) !important;
+
+            border-radius: 12px !important;
+
+            padding: 6px 12px !important;
+
+            width: 150px !important;
+            height: 38px !important;
+
+            font-size: 13px !important;
+            font-weight: 600 !important;
+
+            color: #166534 !important;
+
+            cursor: pointer !important;
+
+            outline: none !important;
+
+            box-shadow: 0 2px 8px rgba(34,197,94,0.08) !important;
+
+            transition: all 0.25s ease !important;
+        }
+
+        /* Hover effect */
+        .goog-te-combo:hover {
+            border-color: #22c55e !important;
+
+            box-shadow: 0 4px 14px rgba(34,197,94,0.16) !important;
+        }
+
+        /* Dropdown items */
+        .goog-te-combo option {
+            background: white !important;
+            color: #111827 !important;
+        }
+
+        /* Navbar alignment */
+        .translate-wrapper {
+            display: flex;
+            align-items: center;
+            margin-left: 8px;
+        }
+    /* Custom arrow */
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .goog-te-combo {
+                min-width: 120px !important;
+                padding: 8px 14px !important;
+                font-size: 13px !important;
+            }
+        }
+
     </style>
+<script type="text/javascript">
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement(
+        {
+            pageLanguage: 'en',
+            includedLanguages: 'en,hi,ta,te',
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+        },
+        'google_translate_element'
+    );
+}
+</script>
+
+<script type="text/javascript"
+src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+</script>
 </head>
 
 <body>
@@ -398,6 +520,10 @@
                     <li><a href="/login" class="btn btn-primary">Login</a></li>
                     <li><a href="/register" class="btn btn-primary" style="background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);">Sign Up</a></li>
                 {% endif %}
+                <!-- Language Selector -->
+                <li class="translate-wrapper">
+                    <div id="google_translate_element"></div>
+                    </li>
                 <li>
                     <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark mode">
                         <i class="fas fa-moon"></i>
