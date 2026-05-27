@@ -727,6 +727,8 @@ src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit
 
     <!-- Footer -->
     <footer class="footer no-print reveal reveal-fade-in">
+        <div class="footer-leaf-container">
+        </div>
         <div class="footer-container">
             <div class="footer-brand">
                 <h2 class="footer-title"><i class="fas fa-leaf"></i> Agri-Vision</h2>
@@ -1081,5 +1083,35 @@ src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit
 </script>
 <script src="{{ url_for('static',
 filename='js/language.js') }}"></script>
+
+<script>
+    function createLeaf() {
+  const container = document.querySelector('.footer-leaf-container');
+  if (!container) return;
+  const leaf = document.createElement('div');
+  leaf.classList.add('leaf-particle');
+  // Randomize horizontal placement along the entire width
+  const randomX = Math.random() * 100;
+  leaf.style.left = `${randomX}%`;
+  // Randomize leaf size (small leaves, as requested!)
+  const randomSize = Math.random() * 10 + 6; // Sizes between 6px and 16px
+  leaf.style.width = `${randomSize}px`;
+  leaf.style.height = `${randomSize}px`;
+  // Randomize speed and delay so they don't rise all at once
+  const randomDuration = Math.random() * 3 + 3; // Between 3s and 6s
+  leaf.style.animationDuration = `${randomDuration}s`;
+  
+  // Random starting rotation for a natural scattered look
+  leaf.style.transform = `rotate(${Math.random() * 360}deg)`;
+  container.appendChild(leaf);
+  // Clean up leaves after they fade out to prevent lagging
+  setTimeout(() => {
+    leaf.remove();
+  }, randomDuration * 1000);
+}
+// Adjust the interval (ms) to make the effect denser or sparser
+setInterval(createLeaf, 150);
+
+</script>
 </body>
 </html>
