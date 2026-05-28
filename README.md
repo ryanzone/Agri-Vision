@@ -321,9 +321,49 @@ Using Docker is the easiest way to run Agri-Vision as it avoids system dependenc
 1. Ensure you have [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed.
 2. Clone the repository and navigate into it:
    ```bash
-   git clone <repository-url>
-   cd <project-folder>
+  git clone <https://github.com/neeru24/Agri-Vision>
+  cd <Agri-Vision>
+  ### Create Virtual Environment
+
+```bash
+python -m venv venv
+
+
+Be careful with the markdown formatting/backticks.
+
+
+### Activate Virtual Environment
+
+For Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+For macOS/Linux:
+
+```bash
+source venv/bin/activate
+```
    ```
+
+   ### Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### Run the Flask App
+
+```bash
+python app.py
+```
+### Open in Browser
+
+```txt
+http://127.0.0.1:5000/
+```
+
 3. Build and start the container:
    ```bash
    docker-compose up --build
