@@ -2160,7 +2160,7 @@ def api_analyze_stream():
             file_bytes = np.frombuffer(file.read(), np.uint8)
             image = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
             if image is None:
-                yield f"data: {json.dumps({'status': 'error', 'message': 'Invalid image file'})}\n\n"
+                yield f"data: {json.dumps({'status': 'error', 'message': 'Unable to process this image. Please upload a clear crop photo and try again.'})}\n\n"
                 return
 
             yield f"data: {json.dumps({'status': 'analyzing', 'progress': 50})}\n\n"
@@ -2174,7 +2174,7 @@ def api_analyze_stream():
                 try:
                     results = future.result(timeout=60)
                 except concurrent.futures.TimeoutError:
-                    yield f"data: {json.dumps({'step': 'error', 'progress': 100, 'message': 'Analysis timed out after 60 seconds. Please retry with a clearer image.'})}\n\n"
+                    yield f"data: {json.dumps({'step': 'error', 'progress': 100, 'message': 'The request exceeded the expected processing time. Please try again later.'})}\n\n"
                     return
             if results.get("error"):
                 yield f"data: {json.dumps({'status': 'error', 'message': results['error']})}\n\n"
@@ -2184,7 +2184,7 @@ def api_analyze_stream():
             yield f"data: {json.dumps({'status': 'complete', 'progress': 100, 'results': results})}\n\n"
         except Exception as e:
             logger.error(f"Streaming analysis error: {e}")
-            yield f"data: {json.dumps({'status': 'error', 'message': str(e)})}\n\n"
+            yield f"data: {json.dumps({'status': 'error', 'message': 'Analysis is taking longer than expected. Please try again after some time.'})}\n\n" 
 
     return Response(stream_with_context(generate()), mimetype="text/event-stream")
 
