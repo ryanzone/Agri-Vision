@@ -55,6 +55,30 @@ app = Flask(__name__, static_folder="static", template_folder="templates")
 # --- Database Configuration ---
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///agri_vision.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# Try dynamic package loading to prevent crash on automated CI testing rigs
+try:
+    redis_host = os.getenv("REDIS_HOST", "localhost")
+    redis_port = int(os.getenv("REDIS_PORT", "6379"))
+    redis_db = int(os.getenv("REDIS_DB", "0"))
+    redis_client = redis.Redis(host=redis_host, port=redis_port, db=redis_db, decode_responses=True)
+    redis_client.ping()
+    logger.info("redis connected for caching and rate limiting")
+    limiter = Limiter(
+        get_remote_address,
+        app=app,
+        storage_uri=f"redis://{redis_host}:{redis_port}",
+        strategy="fixed-window",
+    )
+except (redis.ConnectionError, ModuleNotFoundError) as err:
+    logger.warning(f"caching layer bypass active: {err}")
+    redis_client = None
+
+    class DummyLimiter:
+        def limit(self, *args, **kwargs):
+            return lambda f: f
+
+    limiter = DummyLimiter()
 from models import db
 db.init_app(app)
 
