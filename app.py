@@ -765,7 +765,7 @@ def read_validated_upload_image(file_storage) -> Tuple[str, np.ndarray, np.ndarr
     temp_path = save_temp_upload(file_bytes, app.config["UPLOAD_TMP_DIR"], safe_filename)
 
     try:
-        img = Image.open(io.BytesIO(file_bytes))
+        img = Image.open(BytesIO(file_bytes))
         img.verify()
     except Exception:
         raise UploadValidationError(
