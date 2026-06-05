@@ -2124,6 +2124,10 @@ def demo():
 
         synthetic_rgb = cv2.cvtColor(synthetic_bgr, cv2.COLOR_BGR2RGB)
 
+        # Write synthetic image as a demo file for target explainability to locate
+        os.makedirs("static/uploads", exist_ok=True)
+        cv2.imwrite(os.path.join("static", "uploads", "demo_cotton.jpg"), synthetic_bgr)
+
         # generate mock fallback heatmap
         from services.gradcam import generate_pure_heatmap
 
@@ -2166,6 +2170,7 @@ def demo():
             "results.html",
             results=example_json,
             filename="demo_cotton.jpg",
+            unique_filename="demo_cotton.jpg",
             image_b64=image_b64,
             img_shape={"width": 512, "height": 384},
             raw_json=json.dumps(example_json, indent=2),
