@@ -2884,14 +2884,44 @@ nav a[href="/model-admin"]:hover {
         color: var(--footer-text);
     }
 
+/* 
+   FOOTER CONTENT SPACING & VISUAL HIERARCHY REFINEMENT
+
+   Purpose:
+   Improve content breathing room, readability,
+   and visual organization within the footer.
+
+   Enhancements:
+   - Increased spacing between footer sections.
+   - Improved separation of informational blocks.
+   - Strengthened heading prominence.
+   - Enhanced subtitle readability.
+   - Better alignment with overall design language.
+   - Improved responsive content distribution.
+
+   UX Benefits:
+   - Easier content scanning.
+   - Better visual rhythm.
+   - Reduced footer congestion.
+   - Stronger information hierarchy.
+   - More professional presentation.
+
+   Future Opportunities:
+   - Multi-column footer architecture.
+   - Interactive footer navigation groups.
+   - Expandable informational sections.
+   - Accessibility-focused typography scaling.
+ */
+
     .footer-container {
         max-width: 1100px;
         margin: 0 auto;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding-bottom: 2rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding-bottom: 2.75rem;
+        gap: 2rem;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
     }
 
     .footer-brand h2 {
@@ -2922,7 +2952,7 @@ nav a[href="/model-admin"]:hover {
     .footer-bottom {
         max-width: 1100px;
         margin: 0 auto;
-        padding-top: 1.5rem;
+        padding-top: 2rem;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
         display: flex;
         justify-content: space-between;
@@ -2948,12 +2978,16 @@ nav a[href="/model-admin"]:hover {
     }
 
     .footer-title {
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.75rem;
+        font-size: 1.05rem;
+        font-weight: 700;
+        letter-spacing: 0.3px;
     }
 
     .footer-subtitle {
-        font-size: 0.85rem;
-        opacity: 0.8;
+        font-size: 0.9rem;
+        opacity: 0.9;
+        line-height: 1.7;
     }
 
     @media (max-width: 768px) {
