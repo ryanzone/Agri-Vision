@@ -2188,14 +2188,21 @@ def demo():
         
         # Convert from BGR to RGB
         synthetic_rgb = cv2.cvtColor(synthetic_bgr, cv2.COLOR_BGR2RGB)
-        
+
+        # Write synthetic image as a demo file for target explainability to locate
+        os.makedirs("static/uploads", exist_ok=True)
+        cv2.imwrite(os.path.join("static", "uploads", "demo_cotton.jpg"), synthetic_bgr)
+
         # Generate mock heatmap
+        from services.gradcam import generate_pure_heatmap, apply_heatmap_on_image
         mock_heatmap = generate_mock_heatmap(synthetic_rgb)
+        pure_heatmap_rgb = generate_pure_heatmap(synthetic_rgb, mock_heatmap)
         mock_overlay = apply_heatmap_on_image(synthetic_rgb, mock_heatmap)
         
         # Base64 encode both original synthetic image and XAI overlay
         image_b64 = encode_image_for_display(synthetic_rgb)
         grad_cam_image_b64 = encode_image_for_display(mock_overlay)
+        heatmap_only_b64 = encode_image_for_display(pure_heatmap_rgb)
         
         # Set top-level and nested properties for robustness
         demo_disease["heatmap_b64"] = grad_cam_image_b64
@@ -2212,27 +2219,45 @@ def demo():
         
         # Generate farmer insights
         insights = generate_farmer_insights(demo_disease, demo_growth)
+
+        from services.recommendation_engine import get_recommendations
+        demo_treatment_recs = get_recommendations(
+            crop_type="cotton",
+            disease_name=demo_disease.get("predicted_class", "Healthy"),
+            confidence=demo_disease.get("confidence"),
+        )
     
         example_json = {
             "disease": demo_disease,
             "growth": demo_growth,
             "recommendations": generate_recommendations(demo_disease, demo_growth),
             "grad_cam_image_b64": grad_cam_image_b64,
+            "heatmap_only_b64": heatmap_only_b64,
+            "heatmap_image_path": None,
+            "heatmap_only_path": None,
             "disease_severity": severity,
             "yield_estimate": yield_est,
             "advanced_recommendations": adv_recs,
-            "farmer_insights": insights
+            "farmer_insights": insights,
+            "treatment_recommendations": demo_treatment_recs
         }
         return render_template(
             "results.html",
             results=example_json,
             filename="demo_cotton.jpg",
+            unique_filename="demo_cotton.jpg",
             image_b64=image_b64,
             img_shape={"width": 512, "height": 384},
             raw_json=json.dumps(example_json, indent=2),
             timestamp=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             grad_cam_image_b64=grad_cam_image_b64,
-            yield_estimate=yield_est
+            heatmap_only_b64=heatmap_only_b64,
+            heatmap_image_path=None,
+            heatmap_only_path=None,
+            yield_estimate=yield_est,
+            disease_info=disease_info_map.get("Healthy", {}),
+            treatment_recommendations=demo_treatment_recs,
+            weather=None,
         )
     except Exception as e:
         logger.error(f"Demo route failed: {e}")
